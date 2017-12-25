@@ -2,12 +2,12 @@
 
 This is the sample application for
 [*Ruby on Rails Tutorial:
-Learn Web Development with Rails*](http://www.railstuttorial.org/)
+Learn Web Development with Rails*](http://www.railstutorial.org/)
 by [Michael Hartl](http://www.michaelhartl.com/).
 
 ## License
 
-All source code in the [Ruby on Rails Tutorial](http://www.railstuttorial.org/)
+All source code in the [Ruby on Rails Tutorial](http://www.railstutitorial.org/)
 is available jointly under the MIT License and the Beerware License. See
 [LICENSE.md](LICENSE.md) for details.
 
@@ -16,7 +16,7 @@ is available jointly under the MIT License and the Beerware License. See
 To get started with the app, clone the repo and then install the needed gems:
 $ bundle install --without production
 
-Next, migrate the database:
+Next, migrate the database:ome
 $rails db:migrate
 
 Finally, run the test suite to verify that everything is working correctly:
@@ -26,4 +26,4 @@ If the test suite passes, you'll be ready to run the app in the local server:
 $ rails server
 
 For more information, see the
-[*Ruby on Rails Tutotial* book](http://www.michaelhartl.org/book).
+[*Ruby on Rails Tutotial* book](http://www.railstutorial.org/book).
