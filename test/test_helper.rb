@@ -9,5 +9,8 @@ class ActiveSupport::TestCase
   fixtures :all
   include ApplicationHelper
 
-  # Add more helper methods to be used by all tests here...
+  # Returns true if a test user is logged in (this parallels the logged_in? helper method from sessions_helper, because helper methods aren't available in tests)
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
 end
