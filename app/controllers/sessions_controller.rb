@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
+      remember user     # Remember logged-in user automatically.
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination'   # flash.now disappear as soon as there is an additional request
@@ -14,7 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    log_out if logged_in?     # Log out only if user is logged-in (case with multiple tabs open).
     redirect_to root_url
   end
 end
