@@ -1,0 +1,19 @@
+Hi <%= @user.name %>,
+
+Welcome to the Sample App! Click on the link below to activate you account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+<%#
+edit_user_url(user)  ->
+        http://www.example.com/users/1/edit
+
+edit_account_activation_url(@user.activation_token, ...)  ->
+        http://www.example.com/account_activations/q5lt38hQDc_959PVoo6b7A/edit
+        This token will be available in the Activations controller edit action as params[:id].
+
+edit_account_activation_url(@user.activation_token, email: @user.email)  ->
+        http://www.example.com/account_activations/q5lt38hQDc_959PVoo6b7A/edit?email=foo%40example.com
+        The resulting email address will be available via params[:email].
+        Email is included as query parameter - it appears in a URL as a key-value pair located after a question mark.
+%>
