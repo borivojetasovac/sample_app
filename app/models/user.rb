@@ -29,14 +29,25 @@ class User < ApplicationRecord
   end
 
   # Returns true if the given token (from cookie) matches the digest (from User object).
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?            # Multiple browsers (with remembered users); if user logs out in one browser, an error would occur in another:
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)                                        # remember_digest would be nil
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?            # Multiple browsers (with remembered users); if user logs out in one browser, an error would occur in another:
+    BCrypt::Password.new(digest).is_password?(token)                                        # remember_digest would be nil
   end
 
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  # Activates an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)    # Like 2 calls to update_attribute, but this requires only one database transaction.
+  end                                                               # Or, like update_attributes without validation (we also need password for this).
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
   private
