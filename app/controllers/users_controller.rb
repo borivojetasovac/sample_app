@@ -55,15 +55,6 @@ class UsersController < ApplicationController
 
     # Before filters      (by default, they apply to every action in controller, so we restrict them by passing only: options hash)
 
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_path
-      end
-    end
-
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
