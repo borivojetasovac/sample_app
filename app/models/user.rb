@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :microposts, dependent: :destroy     # Arranges for the dependent microposts to be destroyed when the user itself is destroyed.
+  has_many :active_relationships, class_name:  "Relationship",           # class_name: table is called Relationship, not active_relationships
+                                  foreign_key: "follower_id",            # foreign_key is not in the form <class>_id (like user_id), so we need to tell that to Rails
+                                  dependent:   :destroy
   attr_accessor :remember_token, :activation_token, :reset_token         # Creates getter and setter methods.
   before_save   :downcase_email                            # This callback (method reference) is automatically called before the object is saved (created and updated).
   before_create :create_activation_digest                  # This callback is automatically called before the object is created.
