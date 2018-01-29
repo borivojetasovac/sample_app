@@ -12,8 +12,13 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers      # URLs for following and followers: users/1/following / users/1/followers
+    end
+  end
   resources :account_activations, only: [:edit]   # create named route for edit action (GET is mapped to edit action now)
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
+  resources :relationships,       only: [:create, :destroy]
 end
