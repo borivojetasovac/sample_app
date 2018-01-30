@@ -75,9 +75,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Defines a proto-feed.
+  # Returns a user's status feed.
   def feed
-    Micropost.where("user_id = ?", id)    # ? - ensures that id is properly escaped before being included in the SQL query (thus avoiding SQL injection)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE follower_id = :user_id"    # finding of followed user ids in the database for a more efficient feed
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
 
   # Follows a user.
